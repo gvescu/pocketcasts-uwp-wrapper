@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="dc6c7164-410f-4523-94c8-a64610b0f8af" Publisher="CN=Gavo" Version="0.1.0.0" />
+  <Identity Name="56030GustavoVeraScuderi.PocketcastsforWindows10" Publisher="CN=911087A7-CAB5-4287-A211-39AE04BD73E8" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="dc6c7164-410f-4523-94c8-a64610b0f8af" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>PocketcastsUWP</DisplayName>
-    <PublisherDisplayName>Gavo</PublisherDisplayName>
+    <DisplayName>Pocketcasts for Windows 10</DisplayName>
+    <PublisherDisplayName>Gustavo Vera Scuderi</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,10 +15,13 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="PocketcastsUWP.App">
-      <uap:VisualElements DisplayName="PocketcastsUWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="PocketcastsUWP" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+      <uap:VisualElements DisplayName="Pocketcasts for Windows 10" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Pocketcasts web app wrapper for Windows 10" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Pocketcasts for Windows 10" Square71x71Logo="Assets\Square71x71Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#f44336" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="portrait" />
           <uap:Rotation Preference="landscape" />

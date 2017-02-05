@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,6 +30,12 @@ namespace PocketcastsUWP
         public MainPage()
         {
             this.InitializeComponent();
+
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.BackgroundColor = Windows.UI.Color.FromArgb(255, 244, 67, 54);
+            titleBar.ForegroundColor = Windows.UI.Color.FromArgb(255, 255, 255, 255);   
+            titleBar.ButtonBackgroundColor = Windows.UI.Color.FromArgb(255, 244, 67, 54);
+            titleBar.ButtonForegroundColor = Windows.UI.Color.FromArgb(255, 255, 255, 255);
 
         }
 
