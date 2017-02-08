@@ -8,7 +8,12 @@ Maybe I just should have used the Hosted Web App template, but:
 
 Project inspired by [Morten Just](http://mortenjust.com/)'s [Pocket Casts for Mac](https://github.com/mortenjust/PocketCastsOSX) wrapper.
 
+![Screenshot](https://raw.githubusercontent.com/gvescu/pocketcasts-uwp-wrapper/master/images/screenshot.png)
+
 ---
+
+## How do I get it?
+[Check the releases page](https://github.com/gvescu/pocketcasts-uwp-wrapper/releases). It's an .appxbundle that you can install by double click if you have sideloading enabled (which, apparently, everyone has enabled since build 10586).
 
 ## Current status
 - Load Pocketcasts web app on launch using WebView.
@@ -21,3 +26,4 @@ Project inspired by [Morten Just](http://mortenjust.com/)'s [Pocket Casts for Ma
 - [x] Make the size of the WebView element the same of the viewport.
 - [ ] Update the media controls display with podcast info.
 - [ ] Polish (A LOT)
+- [ ] Test on more machines (only Win10 x64 so far)
