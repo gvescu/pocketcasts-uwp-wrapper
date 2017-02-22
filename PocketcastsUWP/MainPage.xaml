@@ -8,8 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <WebView x:Name="webEntryPoint" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Source="https://play.pocketcasts.com/" LoadCompleted="webEntryPoint_LoadCompleted">
-        </WebView>
+        <WebView x:Name="webEntryPoint" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Source="https://play.pocketcasts.com/" DOMContentLoaded="webEntryPoint_DOMContentLoaded"/>
 
     </Grid>
 </Page>

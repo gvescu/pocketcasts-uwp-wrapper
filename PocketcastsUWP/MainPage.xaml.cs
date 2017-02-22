@@ -1,27 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Diagnostics;
 using Windows.Media;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace PocketcastsUWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class MainPage : Page
     {
 
@@ -39,56 +26,40 @@ namespace PocketcastsUWP
 
         }
 
-        void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
+        async void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
         {
+            string status = string.Empty;
+            string playCommand = "angular.element(document).injector().get('mediaPlayer').playPause()";
+            string statusCommand = "angular.element(document).injector().get('mediaPlayer').playing";
+            string forwardCommand = "angular.element(document).injector().get('mediaPlayer').jumpForward()";
+            string backCommand = "angular.element(document).injector().get('mediaPlayer').jumpBack()";
+
             switch (args.Button)
             {
                 case SystemMediaTransportControlsButton.Play:
-                    playPause();
-                    break;
-                case SystemMediaTransportControlsButton.Pause:
-                    playPause();
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    {
+                        await webEntryPoint.InvokeScriptAsync("eval", new string[] { playCommand });
+                        status = await webEntryPoint.InvokeScriptAsync("eval", new string[] { statusCommand });
+                    });
+                    Debug.WriteLine("Status: " + status);
                     break;
                 case SystemMediaTransportControlsButton.Next:
-                    skipForward();
-                    break;
-                case SystemMediaTransportControlsButton.FastForward:
-                    skipForward();
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    {
+                        await webEntryPoint.InvokeScriptAsync("eval", new string[] { forwardCommand });
+                    });
                     break;
                 case SystemMediaTransportControlsButton.Previous:
-                    jumpBack();
-                    break;
-                case SystemMediaTransportControlsButton.Rewind:
-                    jumpBack();
-                    break;
-                default:
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    {
+                        await webEntryPoint.InvokeScriptAsync("eval", new string[] { backCommand });
+                    });
                     break;
             }
         }
 
-        async void playPause() {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            {
-                string playCommand = "angular.element(document).injector().get('mediaPlayer').playPause()";
-                await webEntryPoint.InvokeScriptAsync("eval", new string[] { playCommand });
-            });
-        }
-        async void skipForward() {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            {
-                string skipCommand = "angular.element(document).injector().get('mediaPlayer').jumpForward()";
-                await webEntryPoint.InvokeScriptAsync("eval", new string[] { skipCommand });
-            });
-        }
-        async void jumpBack() {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            {
-                string jumpCommand = "angular.element(document).injector().get('mediaPlayer').jumpBack()";
-                await webEntryPoint.InvokeScriptAsync("eval", new string[] { jumpCommand });
-            });
-        }
-
-        private void webEntryPoint_LoadCompleted(object sender, NavigationEventArgs e)
+        private void webEntryPoint_DOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
         {
             systemControls = SystemMediaTransportControls.GetForCurrentView();
             systemControls.ButtonPressed += SystemControls_ButtonPressed;
@@ -99,6 +70,6 @@ namespace PocketcastsUWP
             systemControls.IsPreviousEnabled = true;
             systemControls.IsRewindEnabled = true;
         }
-        
+
     }
 }
