@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Media;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 
@@ -15,9 +13,10 @@ namespace PocketcastsUWP
     public sealed partial class MainPage : Page
     {
         string status = string.Empty;
-        string playCommand = "angular.element(document).injector().get('mediaPlayer').playPause()";
+        string playPauseCommand = "angular.element(document).injector().get('mediaPlayer').playPause()";
         string forwardCommand = "angular.element(document).injector().get('mediaPlayer').jumpForward()";
         string backCommand = "angular.element(document).injector().get('mediaPlayer').jumpBack()";
+        string statusCommand = "angular.element(document).injector().get('mediaPlayer').playing.toString()";
 
         string getEpisodeCommand = "angular.element(document).injector().get('mediaPlayer').episode.title.toString()";
         string getPodcastCommand = "angular.element(document).injector().get('mediaPlayer').podcast.title.toString()";
@@ -41,11 +40,12 @@ namespace PocketcastsUWP
             switch (args.Button)
             {
                 case SystemMediaTransportControlsButton.Play:
+                case SystemMediaTransportControlsButton.Pause:
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                     {
                         try
                         {
-                            await webEntryPoint.InvokeScriptAsync("eval", new string[] { playCommand });
+                            await webEntryPoint.InvokeScriptAsync("eval", new string[] { playPauseCommand });
                         }
                         catch (Exception ex)
                         {
@@ -110,12 +110,17 @@ namespace PocketcastsUWP
                 mediaOverlay.Thumbnail = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri(new Uri(artURI));
 
                 mediaOverlay.Update();
+
+                status = await webEntryPoint.InvokeScriptAsync("eval", new string[] { statusCommand });
+                SystemMediaTransportControls.GetForCurrentView().PlaybackStatus = status.Equals("true") ? MediaPlaybackStatus.Playing : MediaPlaybackStatus.Paused;
             });
 
         }
 
         private void webEntryPoint_ScriptNotify(object sender, NotifyEventArgs e)
         {
+            String eventString = e.Value;
+            Debug.WriteLine(eventString);
             updateMediaOverlay();
         }
 
@@ -126,9 +131,10 @@ namespace PocketcastsUWP
                 string playPauseNotifyFunc = "var btns = document.getElementsByClassName('episode_button'); " +
                                              "for (var i=0; i < btns.length; i++) { " +
                                              "btns[i].addEventListener('click', function() { " +
-                                             "window.external.notify(\"PlayPauseEvent\"); })} ";
+                                             "window.external.notify(\"PlayPauseEvent\"); })} " +
+                                             "document.getElementsByClassName('play_pause_button')[0].addEventListener('click', function() { window.external.notify(\"PlayPauseEvent\"); })";
 
-                await Task.Delay(500); //Superrrr Ghetto, but can't figure out how to fire event on rendering complete ('NavigationCompleted" fires to soon and also multiple times for some reason)
+                await Task.Delay(750); //Superrrr Ghetto, but can't figure out how to fire event on rendering complete ('NavigationCompleted" fires to soon and also multiple times for some reason)
                 await webEntryPoint.InvokeScriptAsync("eval", new string[] { playPauseNotifyFunc });                
             });
         }
