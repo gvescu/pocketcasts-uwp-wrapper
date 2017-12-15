@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="56030GustavoVeraScuderi.PocketcastsforWindows10" Publisher="CN=911087A7-CAB5-4287-A211-39AE04BD73E8" Version="0.2.4.0" />
+  <Identity Name="56030GustavoVeraScuderi.PocketcastsforWindows10" Publisher="CN=911087A7-CAB5-4287-A211-39AE04BD73E8" Version="0.2.5.0" />
   <mp:PhoneIdentity PhoneProductId="dc6c7164-410f-4523-94c8-a64610b0f8af" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Pocketcasts for Windows 10</DisplayName>
