@@ -24,6 +24,6 @@ Project inspired by [Morten Just](http://mortenjust.com/)'s [Pocket Casts for Ma
 ## TODO list
 - [ ] Learn ~~to program damn asyncs~~ C# and UWP intricacies.
 - [x] Make the size of the WebView element the same of the viewport.
-- [ ] Update the media controls display with podcast info.
+- [x] Update the media controls display with podcast info.
 - [ ] Polish (A LOT)
 - [ ] Test on more machines (only Win10 x64 so far)
